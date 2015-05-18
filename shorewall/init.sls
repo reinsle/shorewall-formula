@@ -93,7 +93,9 @@ shorewall_enable_tc_simple_v6:
 {% for macro in salt['pillar.get']('shorewall:macros', {}) %}
 shorewall_config_macro_{{ loop.index }}:
   file.managed:
-    - name: {{ map.macro_path }}/{{ macro }}
+    - names: 
+      - {{ map.macro_path_v4 }}/{{ macro }}
+      - {{ map.macro_path_v6 }}/{{ macro }}
     - source: salt://shorewall/files/{{ macro }}
     - user: root
     - group: root
