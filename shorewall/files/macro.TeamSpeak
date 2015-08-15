@@ -1,0 +1,24 @@
+#
+# Shorewall version 4 - SaltMaster Macro
+#
+# /usr/share/shorewall/macro.SaltMaster
+#
+#     Handles traffic to saltmaster ports
+#
+###############################################################################
+?FORMAT 2
+###############################################################################
+#ACTION SOURCE  DEST    PROTO   DEST    SOURCE  RATE    USER/
+#               PORT(S) PORT(S) LIMIT   GROUP
+
+# Teamspeak
+PARAM   -   -   udp     9987
+# Filetransfer
+PARAM   -   -   tcp     30033
+# ServerQuery
+PARAM   -   -   tcp     10011
+# tsdns
+PARAM   -   -   tcp     41144
+
+PARAM   -   -   tcp     4505,4506
+#LAST LINE -- ADD YOUR ENTRIES BEFORE THIS ONE -- DO NOT REMOVE
