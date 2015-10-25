@@ -7,7 +7,7 @@ shorewall:
     - macro.SaltMaster
 
   zones:
-    mgmt:
+    net:
       ipv: 4                        # This controls if this item is used for ipv4 and/or ipv6 shorewall. Omit for both.
       type: ipv4
       options:
