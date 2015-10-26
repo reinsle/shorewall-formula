@@ -1,0 +1,26 @@
+#
+# Shorewall version 4 - {{ macro }} Macro
+#
+# /usr/share/shorewall/macro.SaltMaster
+#
+#     Handles traffic to saltmaster ports
+#
+###############################################################################
+?FORMAT 2
+###############################################################################
+#ACTION SOURCE  DEST    PROTO   DEST    SOURCE  RATE    USER/
+#               PORT(S) PORT(S) LIMIT   GROUP
+
+{%- for m in args %}
+{# skip if ip version does not match #}
+{%-   if m.ipv is defined and m.ipv != ipv %}{% continue %}{% endif %}
+
+{%-   if m is string %}
+{{ m }}
+{%-   else %}
+# {{ m.get('comment', '') }}
+{{ m.get('action', 'PARAM') }} {{ m.get('source', '-') }}  {{ m.get('dest', '-') }}  {{ m.get('proto', '-') }}  {{ m.get('destport', '-') }}  {{ m.get('sourceport', '-') }} {{ m.get('ratelimit', '-') }}  {{ m.get('usergroup', '-') }}
+{%- endif %}
+{%- endfor %}
+
+#LAST LINE -- ADD YOUR ENTRIES BEFORE THIS ONE -- DO NOT REMOVE

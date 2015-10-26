@@ -90,16 +90,19 @@ shorewall_enable_tc_simple_v6:
 {%- endif %}
 
 {# Install macro files #}
-{% for macro in salt['pillar.get']('shorewall:macros', {}) %}
+{% for macro, args in salt['pillar.get']('shorewall:macros', {}).iteritems() %}
 shorewall_config_macro_{{ loop.index }}:
   file.managed:
     - names: 
-      - {{ map.macro_path_v4 }}/{{ macro }}
-      - {{ map.macro_path_v6 }}/{{ macro }}
-    - source: salt://shorewall/files/{{ macro }}
+      - {{ map.macro_path_v4 }}/macro.{{ macro }}
+    - source: salt://shorewall/files/macro.jinja
     - user: root
     - group: root
     - mode: 0644
+    - template: jinja
+    - context:
+      macro: {{ macro }}
+      args: {{ args }}
     - require:
       - pkg: shorewall_v4
     - watch_in:
